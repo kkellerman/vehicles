@@ -1,6 +1,6 @@
-const readline = require('node:readline');
-const { SportsCar, SUV, Crossover, Truck } = require('./vehicles');
-const catalog = require('./catalog');
+import readline from 'node:readline';
+import { SportsCar, SUV, Crossover, Truck } from './vehicles.js';
+import catalog from './catalog.js';
 
 const input = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
 const lines = input[Symbol.asyncIterator]();
@@ -12,6 +12,7 @@ async function askChoice(prompt, choices) {
     if (answer.done) return null;
     const choice = Number(answer.value.trim());
     if (Number.isInteger(choice) && choice >= 1 && choice <= choices.length) {
+      // Menu numbers start at 1, but array indexes start at 0.
       return choices[choice - 1];
     }
     console.log('⚠️ Invalid choice. Please try again.');
@@ -23,6 +24,7 @@ async function main() {
   console.log('Choose a 2026 model.');
 
   while (true) {
+    // Each category connects a menu label to its class and catalog data.
     const categories = [
       { name: '🏎️ Sports car', VehicleClass: SportsCar, models: catalog.sportsCars },
       { name: '🚙 SUV', VehicleClass: SUV, models: catalog.suvs },
@@ -41,7 +43,7 @@ async function main() {
     );
     if (model === null) break;
 
-    const vehicle = new category.VehicleClass(model.make, model.model, 2026, model.powertrain, model.attribute, model.basePrice);
+    const vehicle = new category.VehicleClass(model.make, model.model, 2026, model.powertrain, model.attribute, model.basePrice, model.resaleValue, model.maxSeating, model.zeroToSixty);
     console.log(`\n✅ Vehicle selected:\n${vehicle.describe()}`);
     console.log(`\nSample review: ${'⭐'.repeat(model.rating)} (${model.rating}/5)\n${model.review}`);
 

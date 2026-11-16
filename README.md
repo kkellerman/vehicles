@@ -14,7 +14,15 @@ Choose a category and one of five predefined models. After its details appear, y
 
 The catalog contains popular 2026 models and the requested SUV examples, not a sales ranking. Details can vary by trim and options.
 
+Tire types are app defaults based on vehicle category, not verified factory equipment: sports cars use summer tires, SUVs use all-terrain tires, and crossovers and trucks use all-season tires.
+
+Max seating is the highest available capacity for the model, which may require a particular trim or optional seats. For example, [Chevrolet's 2026 Tahoe fleet guide](https://www.gmfleet.com/content/dam/gmfleet/na/us/en/index/pdfs/suvs/02-pdfs/2026%20Chevrolet%20Tahoe.pdf) lists up to nine, and [the 2026 Model Y](https://www.engadget.com/transportation/evs/tesla-launches-a-seven-seat-version-of-the-2026-model-y-130039385.html) offers an optional seven-seat configuration.
+
 The star ratings and short reviews are sample opinions for the learning project, not ratings from customers or professional reviewers. Edit them in `catalog.js`.
+
+Sports car 0–60 mph figures describe specific trims and test conditions: [Mustang GT](https://www.caranddriver.com/reviews/comparison-test/a70577554/2026-dodge-charger-scat-pack-vs-ford-mustang-gt-comparison-test/), [Corvette Stingray](https://www.chevrolet.com/performance/previous-year/corvette/stingray), [MX-5 Miata](https://www.edmunds.com/mazda/mx-5-miata/), [GR86](https://www.edmunds.com/toyota/gr86/), and [BRZ](https://www.caranddriver.com/subaru/brz). Results vary with equipment and conditions.
+
+Resale values are broad U.S. market estimates, grouped as strong, average, or weak relative to vehicles overall. They are judgments informed by sources rather than ratings assigned by those sources. They combine [Kelley Blue Book's five-year 2026 projections](https://mediaroom.kbb.com/2026-03-19-Kelley-Blue-Book-Announces-2026-Best-Resale-Value-Award-Winners), [J.D. Power's three-year 2026 segment projections](https://www.jdpower.com/business/press-releases/2026-alg-residual-value-awards), and [iSeeCars' five-year used-vehicle trends](https://www.iseecars.com/cars-that-hold-their-value-study). The [R1S estimate](https://www.iseecars.com/resale-value-brands/rivian) is uncertain because its sales history is shorter. A Model Y was a J.D. Power electric SUV segment winner, even though EV resale trends vary. Actual values depend on age, trim, condition, mileage, location, and future demand.
 
 Some fields remain unavailable where a 2026 value has not been verified.
 
@@ -29,3 +37,5 @@ Additional sources: [Rivian R1S](https://www.edmunds.com/rivian/r1s/2026/suv/fea
 ## Explore the code
 
 `vehicles.js` defines the shared `Vehicle` class and four vehicle types that extend it. Each type adds an attribute and uses `describe()` to display its details. `catalog.js` holds the predefined choices, and `index.js` handles prompts and creates a vehicle from the selected entry.
+
+The app uses ES modules: `export` shares the catalog and vehicle classes, and `import` loads them in `index.js`. The `"type": "module"` setting in `package.json` tells Node.js to treat the project's `.js` files as ES modules.
