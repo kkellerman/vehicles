@@ -2,7 +2,7 @@
 
 This roadmap breaks the project into learning milestones. Future milestones are plans, and their order and scope can change.
 
-## 1. JavaScript console catalog: current
+## 1. JavaScript console catalog: complete
 
 **Goal:** Explore object-oriented JavaScript through a working terminal app.
 
@@ -11,18 +11,18 @@ This roadmap breaks the project into learning milestones. Future milestones are 
 - Use classes, inheritance, methods, objects, arrays, and ES modules.
 - Run the existing checks with `node --test`.
 
-## 2. Console improvements and testing: planned
+## 2. Console improvements and testing: complete
 
 **Goal:** Make the console easier to navigate and strengthen its tests.
 
 - Return to the previous menu or choose another model in the same category. (Implemented.)
-- Compare two selected vehicles and their details.
-- Expand tests for selection, invalid input, and vehicle data.
-- Review how vehicle configurations and console output are represented.
+- Compare two different vehicles within the selected category. (Implemented.)
+- Expand tests for selection, invalid input, and vehicle data. (Implemented.)
+- Review how vehicle configurations and console output are represented. (Reviewed.)
 
 **Learning focus:** functions, object parameters, test cases, and separation of concerns.
 
-**Done when:** A user can navigate back, compare two vehicles, and run the updated tests successfully.
+**Done when:** A user can navigate back, compare two different models within a category, and run the updated tests successfully.
 
 ## 3. TypeScript migration: planned
 

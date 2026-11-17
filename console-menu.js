@@ -4,12 +4,80 @@ import catalog from './catalog.js';
 
 // Each category connects a menu label to its class and catalog data.
 const categories = [
-  { name: '🏎️ Sports car', VehicleClass: SportsCar, models: catalog.sportsCars },
-  { name: '🚙 SUV', VehicleClass: SUV, models: catalog.suvs },
-  { name: '🚗 Crossover', VehicleClass: Crossover, models: catalog.crossovers },
-  { name: '🛻 Truck', VehicleClass: Truck, models: catalog.trucks },
-  { name: '🚘 Passenger car', VehicleClass: PassengerCar, models: catalog.passengerCars },
+  {
+    name: '🏎️ Sports car',
+    VehicleClass: SportsCar,
+    models: catalog.sportsCars,
+    comparisonFields: [
+      { label: 'Top speed', property: 'topSpeed' },
+      { label: '0-60 mph', property: 'zeroToSixty' },
+    ],
+  },
+  {
+    name: '🚙 SUV',
+    VehicleClass: SUV,
+    models: catalog.suvs,
+    comparisonFields: [
+      { label: 'Seating options', property: 'seatingDetails' },
+      { label: 'Cargo capacity', property: 'cargoCapacity' },
+    ],
+  },
+  {
+    name: '🚗 Crossover',
+    VehicleClass: Crossover,
+    models: catalog.crossovers,
+    comparisonFields: [{ label: 'Cargo capacity', property: 'cargoCapacity' }],
+  },
+  {
+    name: '🛻 Truck',
+    VehicleClass: Truck,
+    models: catalog.trucks,
+    comparisonFields: [{ label: 'Towing capacity', property: 'towingCapacity' }],
+  },
+  {
+    name: '🚘 Passenger car',
+    VehicleClass: PassengerCar,
+    models: catalog.passengerCars,
+    comparisonFields: [{ label: 'Style', property: 'style' }],
+  },
 ];
+
+const sharedComparisonFields = [
+  { label: 'Year', property: 'year' },
+  { label: 'Base MSRP', property: 'basePrice' },
+  { label: 'Powertrain', property: 'powertrain' },
+  { label: 'Drivetrain', property: 'drivetrain' },
+  { label: 'Horsepower', property: 'horsepower' },
+  { label: 'Fuel economy (combined)', property: 'fuelEconomy' },
+  { label: 'Max seating', property: 'maxSeating' },
+  { label: 'Resale estimate', property: 'resaleValue' },
+];
+
+function comparisonValue(vehicle, property) {
+  const value = vehicle[property];
+  if (value == null || value === '') return 'Unavailable';
+  if (property === 'basePrice') {
+    const note = vehicle.basePriceNote ? ` (${vehicle.basePriceNote})` : '';
+    return `$${value.toLocaleString('en-US')}${note}`;
+  }
+  return value;
+}
+
+function displayComparison(firstVehicle, secondVehicle, category) {
+  const firstName = `${firstVehicle.make} ${firstVehicle.model}`;
+  const secondName = `${secondVehicle.make} ${secondVehicle.model}`;
+  const fields = sharedComparisonFields.concat(category.comparisonFields);
+  const rows = fields.map(function (field) {
+    return {
+      Detail: field.label,
+      [firstName]: comparisonValue(firstVehicle, field.property),
+      [secondName]: comparisonValue(secondVehicle, field.property),
+    };
+  });
+
+  console.log('\nVehicle comparison:');
+  console.table(rows);
+}
 
 async function askChoice(lines, prompt, choices, zeroChoice) {
   while (true) {
@@ -37,7 +105,9 @@ export async function runConsoleMenu() {
   mainLoop: while (true) {
     const category = await askChoice(
       lines,
-      `\nChoose a vehicle type:\n${categories.map((item, index) => `${index + 1}. ${item.name}`).join('\n')}\n0. Quit\n> `,
+      `\nChoose a vehicle type:\n${categories.map(function (item, index) {
+        return `${index + 1}. ${item.name}`;
+      }).join('\n')}\n0. Quit\n> `,
       categories,
       'quit'
     );
@@ -47,7 +117,9 @@ export async function runConsoleMenu() {
     while (true) {
       const model = await askChoice(
         lines,
-        `\nChoose a model:\n${category.models.map((item, index) => `${index + 1}. ${item.make} ${item.model}`).join('\n')}\n0. Back\n> `,
+        `\nChoose a model:\n${category.models.map(function (item, index) {
+          return `${index + 1}. ${item.make} ${item.model}`;
+        }).join('\n')}\n0. Back\n> `,
         category.models,
         'back'
       );
@@ -60,12 +132,33 @@ export async function runConsoleMenu() {
 
       const next = await askChoice(
         lines,
-        '\nWhat next?\n1. Choose another model in this category\n2. Choose another category\n0. Quit\n> ',
-        ['model', 'category'],
+        '\nWhat next?\n1. Choose another model in this category\n2. Choose another category\n3. Compare with another model in this category\n0. Quit\n> ',
+        ['model', 'category', 'compare'],
         'quit'
       );
       if (next === null || next === 'quit') break mainLoop;
       if (next === 'category') break;
+      if (next === 'compare') {
+        const comparisonModels = category.models.filter(function (item) {
+          return item !== model;
+        });
+        const comparisonModel = await askChoice(
+          lines,
+          `\nChoose a model to compare:\n${comparisonModels.map(function (item, index) {
+            return `${index + 1}. ${item.make} ${item.model}`;
+          }).join('\n')}\n0. Back\n> `,
+          comparisonModels,
+          'back'
+        );
+        if (comparisonModel === null) break mainLoop;
+        if (comparisonModel === 'back') continue;
+
+        const comparisonVehicle = new category.VehicleClass({
+          ...comparisonModel,
+          year: comparisonModel.year ?? 2026,
+        });
+        displayComparison(vehicle, comparisonVehicle, category);
+      }
     }
   }
 

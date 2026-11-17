@@ -63,6 +63,23 @@ test('model menu goes back and another model stays in the category', () => {
   assert.match(result.stdout, /Goodbye!/);
 });
 
+test('console compares two different models in the same category', () => {
+  const result = spawnSync(process.execPath, ['index.js'], {
+    input: '1\n5\n3\n1\n0\n0\n',
+    encoding: 'utf8',
+    timeout: 5000,
+  });
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /Vehicle comparison:/);
+  assert.match(result.stdout, /911 Carrera/);
+  assert.match(result.stdout, /Mustang/);
+  assert.match(result.stdout, /Base MSRP/);
+  assert.match(result.stdout, /Top speed/);
+  assert.match(result.stdout, /0-60 mph/);
+  assert.match(result.stdout, /Unavailable/);
+  assert.match(result.stdout, /Goodbye!/);
+});
+
 test('empty input is invalid and zero quits from the category menu', () => {
   const result = spawnSync(process.execPath, ['index.js'], {
     input: '\n0\n',
