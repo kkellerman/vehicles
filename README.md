@@ -8,7 +8,7 @@ A JavaScript console app for exploring a predefined vehicle catalog and practici
 - See details such as base MSRP, powertrain, combined MPG or MPGe, maximum seating, resale estimate, and tire type.
 - See category-specific details, including sports car acceleration and passenger car style.
 - Open a manufacturer link for each model. Pages may show a newer model year or an archived specification.
-- Choose another vehicle or quit. Invalid menu choices prompt you to try again.
+- Go back to categories, choose another model, or quit. Invalid menu choices prompt you to try again.
 
 The app displays catalog choices; it does not currently let you customize, compare, or save vehicles. Reviews summarize published automotive reviews, and the star ratings are project interpretations.
 
@@ -21,7 +21,7 @@ cd C:\Prepos\learning\vehicles
 node index.js
 ```
 
-No package installation is needed. Choose a numbered category and model, pressing Enter after each choice. After its details appear, you can choose another or quit. Press Ctrl+C to stop the app at any time. Vehicles exist only while the app is running.
+No package installation is needed. Choose a numbered category and model, pressing Enter after each choice. Use `0` to go back from the model menu or quit from the category menu. After viewing a vehicle, choose another model, return to categories, or quit. Press Ctrl+C to stop the app at any time. Vehicles exist only while the app is running.
 
 Run the automated checks with `node --test`.
 
@@ -61,8 +61,8 @@ Additional sources: [Rivian R1S](https://www.edmunds.com/rivian/r1s/2026/suv/fea
 
 ## Explore the code
 
-`vehicles.js` defines the shared `Vehicle` class and five vehicle types that extend it. Each type adds an attribute and uses `describe()` to display its details. `catalog.js` holds the predefined choices, and `index.js` handles prompts and creates a vehicle from the selected entry.
+`vehicles.js` defines the shared `Vehicle` class and five vehicle types that extend it. Each type adds an attribute and uses `describe()` to display its details. `catalog.js` holds the predefined choices. `console-menu.js` handles prompts, navigation, and creating the selected vehicle, while `index.js` starts the console app.
 
 Vehicle constructors accept a single object with named properties. Category-specific data uses descriptive names such as `topSpeed`, `seatingDetails`, `cargoCapacity`, `towingCapacity`, and `style`. The console groups base-model pricing separately from example specifications because the listed details can refer to different trims or options; it does not yet model complete selectable configurations.
 
-The app uses ES modules: `export` shares the catalog and vehicle classes, and `import` loads them in `index.js`. The `"type": "module"` setting in `package.json` tells Node.js to treat the project's `.js` files as ES modules.
+The app uses ES modules: `export` shares the catalog, vehicle classes, and menu function, and `import` loads them where needed. The `"type": "module"` setting in `package.json` tells Node.js to treat the project's `.js` files as ES modules.

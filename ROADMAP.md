@@ -15,7 +15,7 @@ This roadmap breaks the project into learning milestones. Future milestones are 
 
 **Goal:** Make the console easier to navigate and strengthen its tests.
 
-- Add an option to return to the previous menu.
+- Return to the previous menu or choose another model in the same category. (Implemented.)
 - Compare two selected vehicles and their details.
 - Expand tests for selection, invalid input, and vehicle data.
 - Review how vehicle configurations and console output are represented.
