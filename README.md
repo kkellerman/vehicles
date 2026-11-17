@@ -7,9 +7,10 @@ A JavaScript console app for exploring a predefined vehicle catalog and practici
 - Browse 26 predefined models across sports cars, SUVs, crossovers, trucks, and passenger cars. Most are 2026 models; the Rivian R2 is a 2027 model.
 - See details such as base MSRP, powertrain, combined MPG or MPGe, maximum seating, resale estimate, and tire type.
 - See category-specific details, including sports car acceleration and passenger car style.
+- Open a manufacturer link for each model. Pages may show a newer model year or an archived specification.
 - Choose another vehicle or quit. Invalid menu choices prompt you to try again.
 
-The app displays catalog choices; it does not currently let you customize, compare, or save vehicles. Reviews and ratings are examples written for the project.
+The app displays catalog choices; it does not currently let you customize, compare, or save vehicles. Reviews summarize published automotive reviews, and the star ratings are project interpretations.
 
 ## Run the app
 
@@ -42,7 +43,7 @@ Fuel economy is an EPA-estimated combined city/highway rating for the stated mod
 
 Max seating is the highest available capacity for the model, which may require a particular trim or optional seats. For example, [Chevrolet's 2026 Tahoe fleet guide](https://www.gmfleet.com/content/dam/gmfleet/na/us/en/index/pdfs/suvs/02-pdfs/2026%20Chevrolet%20Tahoe.pdf) lists up to nine, and [the 2026 Model Y](https://www.engadget.com/transportation/evs/tesla-launches-a-seven-seat-version-of-the-2026-model-y-130039385.html) offers an optional seven-seat configuration.
 
-The star ratings and short reviews are sample opinions for the learning project, not ratings from customers or professional reviewers. Edit them in `catalog.js`.
+The short reviews summarize automotive reviewers' opinions. The five-star ratings are subjective project interpretations, not published scores, customer averages, or a verified industry consensus. Opinions can differ, and reviews may discuss a specific trim. Edit the review or rating in `catalog.js`.
 
 Sports car 0–60 mph figures describe specific trims and test conditions: [Mustang GT](https://www.caranddriver.com/reviews/comparison-test/a70577554/2026-dodge-charger-scat-pack-vs-ford-mustang-gt-comparison-test/), [Corvette Stingray](https://www.chevrolet.com/performance/previous-year/corvette/stingray), [MX-5 Miata](https://www.edmunds.com/mazda/mx-5-miata/), [GR86](https://www.edmunds.com/toyota/gr86/), and [BRZ](https://www.caranddriver.com/subaru/brz). Results vary with equipment and conditions.
 

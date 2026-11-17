@@ -46,7 +46,7 @@ async function main() {
 
     const vehicle = new category.VehicleClass({ ...model, year: model.year ?? 2026 });
     console.log(`\n✅ Vehicle selected:\n${vehicle.describe()}`);
-    console.log(`\nSample review: ${'⭐'.repeat(model.rating)} (${model.rating}/5)\n${model.review}`);
+    console.log(`\nProject review: ${'⭐'.repeat(model.rating)} (${model.rating}/5)\n${model.review}`);
 
     const next = await askChoice('\nChoose another vehicle? 1. Yes  2. Quit\n> ', ['yes', 'quit']);
     if (next !== 'yes') break;

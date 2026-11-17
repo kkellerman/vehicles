@@ -1,6 +1,6 @@
 // The parent class holds properties and behavior shared by every vehicle type.
 class Vehicle {
-  constructor({ make, model, year, powertrain, basePrice, basePriceNote, resaleValue, maxSeating, fuelEconomy }) {
+  constructor({ make, model, year, powertrain, basePrice, basePriceNote, resaleValue, maxSeating, fuelEconomy, manufacturerUrl }) {
     this.make = make;
     this.model = model;
     this.year = year;
@@ -10,6 +10,7 @@ class Vehicle {
     this.resaleValue = resaleValue || 'Unavailable';
     this.maxSeating = maxSeating;
     this.fuelEconomy = fuelEconomy || 'Unavailable';
+    this.manufacturerUrl = manufacturerUrl || 'Unavailable';
   }
 
   describe() {
@@ -18,7 +19,7 @@ class Vehicle {
     const powertrain = this.powertrain === 'Electric' ? '⚡ Electric' : this.powertrain;
     const resaleBags = { Strong: '💰💰💰', Average: '💰💰', Weak: '📉' };
     const resale = resaleBags[this.resaleValue] ? `${resaleBags[this.resaleValue]} ${this.resaleValue}` : this.resaleValue;
-    return `Make: ${this.make}\nModel: ${this.model}\nYear: ${this.year}\n\n💵 Base model starting MSRP: ${price}${priceNote}\n\nSpecifications (may describe different trims or options):\nPowertrain: ${powertrain}\nFuel economy (combined): ${this.fuelEconomy}\nMax seating (available): ${this.maxSeating ?? 'Unavailable'}\n\nResale estimate: ${resale}\n🛞 App default tires: ${this.tires}`;
+    return `Make: ${this.make}\nModel: ${this.model}\nYear: ${this.year}\nManufacturer: ${this.manufacturerUrl}\n\n💵 Base model starting MSRP: ${price}${priceNote}\n\nSpecifications (may describe different trims or options):\nPowertrain: ${powertrain}\nFuel economy (combined): ${this.fuelEconomy}\nMax seating (available): ${this.maxSeating ?? 'Unavailable'}\n\nResale estimate: ${resale}\n🛞 App default tires: ${this.tires}`;
   }
 }
 
