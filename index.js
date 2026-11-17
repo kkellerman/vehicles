@@ -1,5 +1,5 @@
 import readline from 'node:readline';
-import { SportsCar, SUV, Crossover, Truck } from './vehicles.js';
+import { SportsCar, SUV, Crossover, Truck, PassengerCar } from './vehicles.js';
 import catalog from './catalog.js';
 
 const input = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
@@ -21,7 +21,7 @@ async function askChoice(prompt, choices) {
 
 async function main() {
   console.log('🚗 Welcome to the Vehicle Builder!');
-  console.log('Choose a 2026 model.');
+  console.log('Choose a vehicle from the catalog.');
 
   while (true) {
     // Each category connects a menu label to its class and catalog data.
@@ -30,6 +30,7 @@ async function main() {
       { name: '🚙 SUV', VehicleClass: SUV, models: catalog.suvs },
       { name: '🚗 Crossover', VehicleClass: Crossover, models: catalog.crossovers },
       { name: '🛻 Truck', VehicleClass: Truck, models: catalog.trucks },
+      { name: '🚘 Passenger car', VehicleClass: PassengerCar, models: catalog.passengerCars },
     ];
     const category = await askChoice(
       `\nChoose a vehicle type:\n${categories.map((item, index) => `${index + 1}. ${item.name}`).join('\n')}\n> `,
@@ -43,7 +44,7 @@ async function main() {
     );
     if (model === null) break;
 
-    const vehicle = new category.VehicleClass(model.make, model.model, 2026, model.powertrain, model.attribute, model.basePrice, model.resaleValue, model.maxSeating, model.zeroToSixty);
+    const vehicle = new category.VehicleClass({ ...model, year: model.year ?? 2026 });
     console.log(`\n✅ Vehicle selected:\n${vehicle.describe()}`);
     console.log(`\nSample review: ${'⭐'.repeat(model.rating)} (${model.rating}/5)\n${model.review}`);
 

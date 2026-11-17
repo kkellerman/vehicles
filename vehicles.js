@@ -1,54 +1,60 @@
 // The parent class holds properties and behavior shared by every vehicle type.
 class Vehicle {
-  constructor(make, model, year, powertrain, basePrice, resaleValue, maxSeating) {
+  constructor({ make, model, year, powertrain, basePrice, basePriceNote, resaleValue, maxSeating, fuelEconomy }) {
     this.make = make;
     this.model = model;
     this.year = year;
     this.powertrain = powertrain || 'Unavailable';
     this.basePrice = basePrice;
+    this.basePriceNote = basePriceNote;
     this.resaleValue = resaleValue || 'Unavailable';
     this.maxSeating = maxSeating;
+    this.fuelEconomy = fuelEconomy || 'Unavailable';
   }
 
   describe() {
     const price = this.basePrice == null ? 'Unavailable' : `$${this.basePrice.toLocaleString('en-US')}`;
+    const priceNote = this.basePriceNote ? ` (${this.basePriceNote})` : '';
+    const powertrain = this.powertrain === 'Electric' ? '⚡ Electric' : this.powertrain;
     const resaleBags = { Strong: '💰💰💰', Average: '💰💰', Weak: '📉' };
     const resale = resaleBags[this.resaleValue] ? `${resaleBags[this.resaleValue]} ${this.resaleValue}` : this.resaleValue;
-    return `Make: ${this.make}\nModel: ${this.model}\nYear: ${this.year}\n💵 Base MSRP: ${price} (base model)\nPowertrain: ${this.powertrain}\nResale value: ${resale}\n🛞 Tires: ${this.tires}\nMax seating: ${this.maxSeating ?? 'Unavailable'}`;
+    return `Make: ${this.make}\nModel: ${this.model}\nYear: ${this.year}\n\n💵 Base model starting MSRP: ${price}${priceNote}\n\nSpecifications (may describe different trims or options):\nPowertrain: ${powertrain}\nFuel economy (combined): ${this.fuelEconomy}\nMax seating (available): ${this.maxSeating ?? 'Unavailable'}\n\nResale estimate: ${resale}\n🛞 App default tires: ${this.tires}`;
   }
 }
 
 class SportsCar extends Vehicle {
-  constructor(make, model, year, powertrain, topSpeed, basePrice, resaleValue, maxSeating, zeroToSixty) {
+  constructor(vehicle) {
     // super calls the parent constructor to initialize the shared properties.
-    super(make, model, year, powertrain, basePrice, resaleValue, maxSeating);
-    this.topSpeed = topSpeed || 'Unavailable';
-    this.zeroToSixty = zeroToSixty || 'Unavailable';
+    super(vehicle);
+    this.topSpeed = vehicle.topSpeed || 'Unavailable';
+    this.zeroToSixty = vehicle.zeroToSixty || 'Unavailable';
     this.tires = 'Summer';
   }
 
   describe() {
     // Extend the parent description with details specific to a sports car.
-    return `🏎️ Type: Sports car\n${super.describe()}\nTop speed: ${this.topSpeed}\n0-60 mph: ${this.zeroToSixty}`;
+    return `🏎️ Type: Sports car\n${super.describe()}\n\nPerformance (configuration varies):\nTop speed: ${this.topSpeed}\n0-60 mph: ${this.zeroToSixty}`;
   }
 }
 
 class SUV extends Vehicle {
-  constructor(make, model, year, powertrain, seats, basePrice, resaleValue, maxSeating) {
-    super(make, model, year, powertrain, basePrice, resaleValue, maxSeating);
-    this.seats = seats || 'Unavailable';
+  constructor(vehicle) {
+    super(vehicle);
+    this.seatingDetails = vehicle.seatingDetails || 'Unavailable';
+    this.cargoCapacity = vehicle.cargoCapacity;
     this.tires = 'All-Terrain';
   }
 
   describe() {
-    return `🚙 Type: SUV\n${super.describe()}\nSeats: ${this.seats}`;
+    const cargo = this.cargoCapacity ? `\nCargo capacity: ${this.cargoCapacity}` : '';
+    return `🚙 Type: SUV\n${super.describe()}\nSeating options: ${this.seatingDetails}${cargo}`;
   }
 }
 
 class Crossover extends Vehicle {
-  constructor(make, model, year, powertrain, cargoCapacity, basePrice, resaleValue, maxSeating) {
-    super(make, model, year, powertrain, basePrice, resaleValue, maxSeating);
-    this.cargoCapacity = cargoCapacity || 'Unavailable';
+  constructor(vehicle) {
+    super(vehicle);
+    this.cargoCapacity = vehicle.cargoCapacity || 'Unavailable';
     this.tires = 'All-Season (A/S)';
   }
 
@@ -58,9 +64,9 @@ class Crossover extends Vehicle {
 }
 
 class Truck extends Vehicle {
-  constructor(make, model, year, powertrain, towingCapacity, basePrice, resaleValue, maxSeating) {
-    super(make, model, year, powertrain, basePrice, resaleValue, maxSeating);
-    this.towingCapacity = towingCapacity || 'Unavailable';
+  constructor(vehicle) {
+    super(vehicle);
+    this.towingCapacity = vehicle.towingCapacity || 'Unavailable';
     this.tires = 'All-Season (A/S)';
   }
 
@@ -69,5 +75,17 @@ class Truck extends Vehicle {
   }
 }
 
+class PassengerCar extends Vehicle {
+  constructor(vehicle) {
+    super(vehicle);
+    this.style = vehicle.style || 'Unavailable';
+    this.tires = 'All-Season (A/S)';
+  }
+
+  describe() {
+    return `🚘 Type: Passenger car\n${super.describe()}\nStyle: ${this.style}`;
+  }
+}
+
 // Named exports let other modules import the vehicle classes they need.
-export { SportsCar, SUV, Crossover, Truck };
+export { SportsCar, SUV, Crossover, Truck, PassengerCar };
