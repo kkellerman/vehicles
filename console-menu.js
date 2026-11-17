@@ -2,10 +2,16 @@ import readline from 'node:readline';
 import { SportsCar, SUV, Crossover, Truck, PassengerCar } from './vehicles.js';
 import catalog from './catalog.js';
 
-const input = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
-const lines = input[Symbol.asyncIterator]();
+// Each category connects a menu label to its class and catalog data.
+const categories = [
+  { name: '🏎️ Sports car', VehicleClass: SportsCar, models: catalog.sportsCars },
+  { name: '🚙 SUV', VehicleClass: SUV, models: catalog.suvs },
+  { name: '🚗 Crossover', VehicleClass: Crossover, models: catalog.crossovers },
+  { name: '🛻 Truck', VehicleClass: Truck, models: catalog.trucks },
+  { name: '🚘 Passenger car', VehicleClass: PassengerCar, models: catalog.passengerCars },
+];
 
-async function askChoice(prompt, choices, zeroChoice) {
+async function askChoice(lines, prompt, choices, zeroChoice) {
   while (true) {
     process.stdout.write(prompt);
     const answer = await lines.next();
@@ -22,27 +28,25 @@ async function askChoice(prompt, choices, zeroChoice) {
 }
 
 export async function runConsoleMenu() {
+  const input = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
+  const lines = input[Symbol.asyncIterator]();
   console.log('🚗 Welcome to the Vehicle Builder!');
   console.log('Choose a vehicle from the catalog.');
 
+  // Main menu loop: choose a category or quit the app.
   mainLoop: while (true) {
-    // Each category connects a menu label to its class and catalog data.
-    const categories = [
-      { name: '🏎️ Sports car', VehicleClass: SportsCar, models: catalog.sportsCars },
-      { name: '🚙 SUV', VehicleClass: SUV, models: catalog.suvs },
-      { name: '🚗 Crossover', VehicleClass: Crossover, models: catalog.crossovers },
-      { name: '🛻 Truck', VehicleClass: Truck, models: catalog.trucks },
-      { name: '🚘 Passenger car', VehicleClass: PassengerCar, models: catalog.passengerCars },
-    ];
     const category = await askChoice(
+      lines,
       `\nChoose a vehicle type:\n${categories.map((item, index) => `${index + 1}. ${item.name}`).join('\n')}\n0. Quit\n> `,
       categories,
       'quit'
     );
     if (category === null || category === 'quit') break;
 
+    // Model menu loop: stay in this category until the user goes back or quits.
     while (true) {
       const model = await askChoice(
+        lines,
         `\nChoose a model:\n${category.models.map((item, index) => `${index + 1}. ${item.make} ${item.model}`).join('\n')}\n0. Back\n> `,
         category.models,
         'back'
@@ -55,6 +59,7 @@ export async function runConsoleMenu() {
       console.log(`\nProject review: ${'⭐'.repeat(model.rating)} (${model.rating}/5)\n${model.review}`);
 
       const next = await askChoice(
+        lines,
         '\nWhat next?\n1. Choose another model in this category\n2. Choose another category\n0. Quit\n> ',
         ['model', 'category'],
         'quit'

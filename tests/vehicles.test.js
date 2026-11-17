@@ -20,6 +20,10 @@ test('vehicle classes preserve named catalog properties', () => {
       assert.equal(vehicle.model, model.model);
       assert.equal(vehicle.basePrice, model.basePrice);
       assert.equal(vehicle.fuelEconomy, model.fuelEconomy);
+      assert.equal(vehicle.drivetrain, model.drivetrain);
+      assert.equal(vehicle.horsepower, model.horsepower);
+      assert.ok(vehicle.describe().includes(`Drivetrain: ${model.drivetrain}`));
+      assert.ok(vehicle.describe().includes(`Horsepower: ${model.horsepower}`));
       assert.equal(vehicle[detail], model[detail] || 'Unavailable');
       assert.ok(vehicle.describe().includes('Specifications (may describe different trims or options):'));
     }

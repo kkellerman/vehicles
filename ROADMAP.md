@@ -71,14 +71,41 @@ This roadmap breaks the project into learning milestones. Future milestones are 
 
 **Done when:** The styled selection flow works across screen sizes and remains usable with a keyboard.
 
-## 7. Customization and persistence: ideas
+## 7. Next.js application: planned
+
+**Goal:** Move the React experience into a Next.js application with room for server-side features.
+
+- Set up a Next.js project using TypeScript and Tailwind CSS, and bring over the vehicle browsing interface.
+- Create pages for browsing the catalog and viewing individual vehicle details.
+- Introduce server-side data access and a persistent catalog instead of relying only on the in-code catalog. Choose the storage approach when this milestone begins.
+- Preserve accessible navigation and add tests for the main browsing flow.
+
+**Learning focus:** Next.js routing, server and client responsibilities, data loading, and persistence.
+
+**Done when:** A user can browse and view vehicles in the Next.js app and the catalog remains available after the app restarts.
+
+## 8. Accounts and catalog roles: planned
+
+**Goal:** Let authorized people maintain the catalog while visitors can browse it.
+
+- Add sign-in and define the roles and permissions for visitors and catalog editors. Consider an administrator role if the app needs someone to manage access.
+- Let authorized editors add and update vehicle details through forms with clear validation and feedback.
+- Check permissions on the server for every catalog change, including requests made outside the interface.
+- Test permitted actions, signed-out access, and denied changes by users without the required role.
+
+**Learning focus:** authentication, authorization, forms, server-side validation, and role-based testing.
+
+**Done when:** Visitors can browse, authorized editors can add and update vehicles, and unauthorized requests cannot change the catalog.
+
+## 9. Customization and a fuller web app: ideas
 
 **Goal:** Let users make a vehicle their own and revisit it later.
 
 - Explore selectable options such as color or tires and show their effect on the vehicle.
-- Save and revisit selections using browser local storage.
+- Save and revisit selections. Start with browser local storage or consider account-based storage when the requirements are clearer.
 - Add browser filtering or comparison if it fits the experience.
+- Consider features such as search, favorites, and a more complete catalog management experience.
 
-**Learning focus:** state, input validation, persistence, and modeling options. Decide the exact scope and data sources when this milestone begins.
+**Learning focus:** application state, input validation, persistence, and modeling options. Decide the exact scope and data sources when this milestone begins.
 
 **Done when:** A user can customize a vehicle, save it, and retrieve it after reopening the browser.

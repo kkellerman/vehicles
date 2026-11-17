@@ -5,7 +5,7 @@ A JavaScript console app for exploring a predefined vehicle catalog and practici
 ## What you can do
 
 - Browse 26 predefined models across sports cars, SUVs, crossovers, trucks, and passenger cars. Most are 2026 models; the Rivian R2 is a 2027 model.
-- See details such as base MSRP, powertrain, combined MPG or MPGe, maximum seating, resale estimate, and tire type.
+- See details such as base MSRP, powertrain, drivetrain, horsepower, combined MPG or MPGe, maximum seating, resale estimate, and tire type.
 - See category-specific details, including sports car acceleration and passenger car style.
 - Open a manufacturer link for each model. Pages may show a newer model year or an archived specification.
 - Go back to categories, choose another model, or quit. Invalid menu choices prompt you to try again.
@@ -27,13 +27,15 @@ Run the automated checks with `node --test`.
 
 ## Roadmap
 
-See [ROADMAP.md](ROADMAP.md) for the current console milestone and planned work toward TypeScript, a browser interface, React, Tailwind CSS, and saved selections.
+See [ROADMAP.md](ROADMAP.md) for the current console milestone and planned work toward TypeScript, a browser interface, React, Tailwind CSS, and a fuller Next.js app with role-based catalog management.
 
 ## About the vehicle data
 
 The catalog contains popular models and the requested SUV examples, not a sales ranking. Most entries are for 2026; the Rivian R2 is a 2027 model. Details can vary by trim and options.
 
 The R2's $44,990 starting price is for the Standard trim expected in 2027, while its efficiency and cargo figures describe the Performance trim. Its resale value is unavailable because a reliable long-term estimate has not been established. Sources: [Rivian pricing](https://rivian.com/r2), [EPA fuel economy](https://www.fueleconomy.gov/feg/PowerSearch.do?action=noform&baseModel=R2&make=Rivian&pageno=1&srchtyp=ymm&year1=2026&year2=2027), and [Edmunds specifications](https://www.edmunds.com/rivian/r2/2027/st-402100405/features-specs/).
+
+Drivetrain and horsepower describe the indicated example configuration, not every available trim. Hybrid system horsepower is labeled as combined output. Model Y horsepower is unavailable because a comparable manufacturer figure has not been verified. Sources include the manufacturer pages in the catalog, [Rivian R2 details](https://www.sec.gov/Archives/edgar/data/1874178/000187417826000033/ex-9921q26rivianearnings.htm), and [Toyota RAV4 specifications](https://pressroom.toyota.com/the-next-adventure-begins-2026-rav4-arrives-this-winter/).
 
 Tire types are app defaults based on vehicle category, not verified factory equipment: sports cars use summer tires, SUVs use all-terrain tires, and crossovers and trucks use all-season tires.
 
