@@ -58,6 +58,9 @@ test('model menu goes back and another model stays in the category', () => {
   });
   assert.equal(result.status, 0, result.stderr);
   assert.equal((result.stdout.match(/Choose a vehicle type:/g) || []).length, 2);
+  assert.match(result.stdout, /0\. ↩️ Back/);
+  assert.match(result.stdout, /1\. 📋 Choose another model in this category/);
+  assert.match(result.stdout, /0\. 🚪 Quit/);
   assert.match(result.stdout, /Model: CR-V/);
   assert.match(result.stdout, /Model: RAV4/);
   assert.match(result.stdout, /Goodbye!/);
@@ -78,6 +81,44 @@ test('console compares two different models in the same category', () => {
   assert.match(result.stdout, /0-60 mph/);
   assert.match(result.stdout, /Unavailable/);
   assert.match(result.stdout, /Goodbye!/);
+});
+
+test('comparison menu highlights only Compare in color-capable terminals', () => {
+  for (const [isTTY, noColor, term, expected] of [
+    [true, '', 'xterm', '\x1b[96mCompare\x1b[39m'],
+    [true, '1', 'xterm', 'Compare'],
+    [false, '', 'xterm', 'Compare'],
+    [true, '', 'dumb', 'Compare'],
+  ]) {
+    const result = spawnSync(process.execPath, [
+      '--input-type=module',
+      '-e',
+      `process.stdout.isTTY = ${isTTY}; await import('./index.js');`,
+    ], {
+      input: '1\n1\n0\n',
+      encoding: 'utf8',
+      timeout: 5000,
+      env: { ...process.env, TERM: term, NO_COLOR: noColor },
+    });
+    assert.equal(result.status, 0, result.stderr);
+    assert.ok(result.stdout.includes(`3. 🔍 ${expected} with another model in this category`));
+  }
+});
+
+test('Rivian R1T can be selected and compared with another truck', () => {
+  const result = spawnSync(process.execPath, ['index.js'], {
+    input: '4\n6\n3\n1\n0\n0\n',
+    encoding: 'utf8',
+    timeout: 5000,
+  });
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /6\. Rivian R1T/);
+  assert.match(result.stdout, /Model: R1T/);
+  assert.match(result.stdout, /Powertrain: ⚡ Electric/);
+  assert.match(result.stdout, /Vehicle comparison:/);
+  assert.match(result.stdout, /Rivian R1T/);
+  assert.match(result.stdout, /Ford F-150/);
+  assert.match(result.stdout, /Up to 11,000 lbs when properly equipped/);
 });
 
 test('empty input is invalid and zero quits from the category menu', () => {

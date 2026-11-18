@@ -107,7 +107,7 @@ export async function runConsoleMenu() {
       lines,
       `\nChoose a vehicle type:\n${categories.map(function (item, index) {
         return `${index + 1}. ${item.name}`;
-      }).join('\n')}\n0. Quit\n> `,
+      }).join('\n')}\n0. 🚪 Quit\n> `,
       categories,
       'quit'
     );
@@ -119,7 +119,7 @@ export async function runConsoleMenu() {
         lines,
         `\nChoose a model:\n${category.models.map(function (item, index) {
           return `${index + 1}. ${item.make} ${item.model}`;
-        }).join('\n')}\n0. Back\n> `,
+        }).join('\n')}\n0. ↩️ Back\n> `,
         category.models,
         'back'
       );
@@ -130,9 +130,12 @@ export async function runConsoleMenu() {
       console.log(`\n✅ Vehicle selected:\n${vehicle.describe()}`);
       console.log(`\nProject review: ${'⭐'.repeat(model.rating)} (${model.rating}/5)\n${model.review}`);
 
+      const compareLabel = process.stdout.isTTY && process.env.TERM !== 'dumb' && !process.env.NO_COLOR
+        ? '\x1b[96mCompare\x1b[39m'
+        : 'Compare';
       const next = await askChoice(
         lines,
-        '\nWhat next?\n1. Choose another model in this category\n2. Choose another category\n3. Compare with another model in this category\n0. Quit\n> ',
+        `\nWhat next?\n1. 📋 Choose another model in this category\n2. Choose another category\n3. 🔍 ${compareLabel} with another model in this category\n0. 🚪 Quit\n> `,
         ['model', 'category', 'compare'],
         'quit'
       );
@@ -146,7 +149,7 @@ export async function runConsoleMenu() {
           lines,
           `\nChoose a model to compare:\n${comparisonModels.map(function (item, index) {
             return `${index + 1}. ${item.make} ${item.model}`;
-          }).join('\n')}\n0. Back\n> `,
+          }).join('\n')}\n0. ↩️ Back\n> `,
           comparisonModels,
           'back'
         );

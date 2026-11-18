@@ -4,7 +4,7 @@ A JavaScript console app for exploring a predefined vehicle catalog and practici
 
 ## What you can do
 
-- Browse 26 predefined models across sports cars, SUVs, crossovers, trucks, and passenger cars. Most are 2026 models; the Rivian R2 and Porsche 911 Carrera are 2027 models.
+- Browse 27 predefined models across sports cars, SUVs, crossovers, trucks, and passenger cars. Most are 2026 models; the Rivian R2 and Porsche 911 Carrera are 2027 models.
 - See details such as base MSRP, powertrain, drivetrain, horsepower, combined MPG or MPGe, maximum seating, resale estimate, and tire type.
 - See category-specific details, including sports car acceleration and passenger car style.
 - Compare two different models within the same vehicle category.
@@ -24,6 +24,8 @@ node index.js
 
 No package installation is needed. Choose a numbered category and model, pressing Enter after each choice. After viewing a vehicle, you can compare it with another model in that category. Use `0` to go back from a model menu or quit from the category menu. Press Ctrl+C to stop the app at any time. Vehicles exist only while the app is running.
 
+The word "Compare" is highlighted in supported terminals. Set `NO_COLOR` to a nonempty value to disable the highlight.
+
 Run the automated checks with `node --test`.
 
 ## Roadmap
@@ -35,6 +37,8 @@ See [ROADMAP.md](ROADMAP.md) for the current console milestone and planned work 
 The catalog contains popular models and the requested SUV examples, not a sales ranking. Most entries are for 2026; the Rivian R2 and Porsche 911 Carrera are 2027 models. Details can vary by trim and options.
 
 The R2's $44,990 starting price is for the Standard trim expected in 2027, while its efficiency and cargo figures describe the Performance trim. Its resale value is unavailable because a reliable long-term estimate has not been established. Sources: [Rivian pricing](https://rivian.com/r2), [EPA fuel economy](https://www.fueleconomy.gov/feg/PowerSearch.do?action=noform&baseModel=R2&make=Rivian&pageno=1&srchtyp=ymm&year1=2026&year2=2027), and [Edmunds specifications](https://www.edmunds.com/rivian/r2/2027/st-402100405/features-specs/).
+
+The 2026 R1T's starting price, Dual-Motor horsepower, seating, towing capacity, and review are based on [Car and Driver](https://www.caranddriver.com/rivian/r1t-2026). Its fuel economy describes the [Dual Max with 22-inch wheels](https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=49694), not necessarily the base configuration. Its resale value is unavailable because an estimate has not been verified.
 
 Drivetrain and horsepower describe the indicated example configuration, not every available trim. Hybrid system horsepower is labeled as combined output. Model Y horsepower is unavailable because a comparable manufacturer figure has not been verified. Sources include the manufacturer pages in the catalog, [Rivian R2 details](https://www.sec.gov/Archives/edgar/data/1874178/000187417826000033/ex-9921q26rivianearnings.htm), and [Toyota RAV4 specifications](https://pressroom.toyota.com/the-next-adventure-begins-2026-rav4-arrives-this-winter/).
 
