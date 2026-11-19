@@ -19,14 +19,15 @@ Install Node.js, open PowerShell, and run:
 
 ```powershell
 cd C:\Prepos\learning\vehicles
-node index.js
+npm install
+npm start
 ```
 
-No package installation is needed. Choose a numbered category and model, pressing Enter after each choice. After viewing a vehicle, you can compare it with another model in that category. Use `0` to go back from a model menu or quit from the category menu. Press Ctrl+C to stop the app at any time. Vehicles exist only while the app is running.
+The first command installs the TypeScript compiler and Node.js type definitions. `npm start` compiles the TypeScript source into the ignored `dist` folder, then starts the app. Choose a numbered category and model, pressing Enter after each choice. After viewing a vehicle, you can compare it with another model in that category. Use `0` to go back from a model menu or quit from the category menu. Press Ctrl+C to stop the app at any time. Vehicles exist only while the app is running.
 
 The word "Compare" is highlighted in supported terminals. Set `NO_COLOR` to a nonempty value to disable the highlight.
 
-Run the automated checks with `node --test`.
+Run the automated checks with `npm test`. This builds the app and runs the tests against the compiled output. Use `npm run build` to compile without running tests.
 
 ## Roadmap
 
@@ -68,7 +69,7 @@ Additional sources: [Rivian R1S](https://www.edmunds.com/rivian/r1s/2026/suv/fea
 
 ## Explore the code
 
-`vehicles.js` defines the shared `Vehicle` class and five vehicle types that extend it. Each type adds an attribute and uses `describe()` to display its details. `catalog.js` holds the predefined choices. `console-menu.js` handles prompts, navigation, and creating the selected vehicle, while `index.js` starts the console app.
+`vehicles.ts` defines the shared vehicle data types, the `Vehicle` class, and five vehicle types that extend it. Each type adds an attribute and uses `describe()` to display its details. `catalog.ts` holds the predefined choices and checks their category-specific data types. `console-menu.ts` handles prompts, navigation, and creating the selected vehicle, while `index.ts` starts the console app. TypeScript compiles these modules to `dist/` before the app runs.
 
 Vehicle constructors accept a single object with named properties. Category-specific data uses descriptive names such as `topSpeed`, `seatingDetails`, `cargoCapacity`, `towingCapacity`, and `style`. The console groups base-model pricing separately from example specifications because the listed details can refer to different trims or options; it does not yet model complete selectable configurations.
 

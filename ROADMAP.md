@@ -24,17 +24,17 @@ This roadmap breaks the project into learning milestones. Future milestones are 
 
 **Done when:** A user can navigate back, compare two different models within a category, and run the updated tests successfully.
 
-## 3. TypeScript migration: planned
+## 3. TypeScript migration: complete
 
-**Goal:** Add types while keeping the console app's behavior.
+**Goal:** Add types while keeping the console app's behavior. (Implemented.)
 
-- Configure TypeScript and convert the catalog, classes, and terminal app.
-- Define types for shared vehicle details and category-specific properties.
-- Update the run and test instructions for the new setup.
+- Configure strict TypeScript compilation and convert the catalog, classes, and terminal app. (Implemented.)
+- Define types for shared vehicle details and category-specific properties. (Implemented.)
+- Update the run and test instructions for the new setup. (Implemented.)
 
 **Learning focus:** types, interfaces, compiler feedback, and working with existing JavaScript.
 
-**Done when:** The app builds, the console flow still works, and the tests pass.
+**Done when:** The app builds, the console flow still works, and the tests pass. (Verified with `npm test`.)
 
 ## 4. Browser interface with HTML and CSS: planned
 

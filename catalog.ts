@@ -1,7 +1,9 @@
+import type { VehicleCatalog } from './vehicles.js';
+
 // These are popular choices, not a sales ranking.
 // Missing details have not yet been verified in the sources in README.md.
 // The default export shares the catalog with other modules.
-export default {
+const catalog = {
   passengerCars: [
     { make: 'Toyota', model: 'Camry', drivetrain: 'FWD (LE hybrid)', horsepower: '225 hp (LE FWD hybrid, combined system)', manufacturerUrl: 'https://www.toyota.com/camry/2026/', fuelEconomy: '51 MPG (LE FWD hybrid)', style: 'Sedan', maxSeating: 5, resaleValue: 'Strong', basePrice: 29600, powertrain: '2.5 L hybrid', rating: 5, review: 'Reviewers praise its roomy cabin and hybrid efficiency; steering is less engaging.' },
     { make: 'Honda', model: 'Accord', drivetrain: 'FWD', horsepower: '192 hp (1.5 L gasoline)', manufacturerUrl: 'https://automobiles.honda.com/accord', fuelEconomy: '32 MPG (1.5 L gasoline)', style: 'Sedan', maxSeating: 5, resaleValue: 'Strong', basePrice: 28395, powertrain: '1.5 L gasoline or 2.0 L hybrid', rating: 5, review: 'Reviewers like its spacious cabin and balanced ride; all-wheel drive is not offered.' },
@@ -39,4 +41,6 @@ export default {
     { make: 'Toyota', model: 'Tacoma', drivetrain: '2WD (SR automatic)', horsepower: '228 hp (SR 2.4 L automatic)', manufacturerUrl: 'https://www.toyota.com/tacoma/2026/', fuelEconomy: '23 MPG (2.4 L 2WD gasoline)', maxSeating: 5, resaleValue: 'Strong', basePrice: 32545, powertrain: '2.4 L inline-four; hybrid available', towingCapacity: 'Up to 6,500 lbs with the required configuration', rating: 4, review: 'Reviewers like its trim choices and capability, but it tows less than some rivals.' },
     { make: 'Rivian', model: 'R1T', drivetrain: 'AWD (Dual-Motor)', horsepower: '533 hp (Dual-Motor)', manufacturerUrl: 'https://rivian.com/r1t', fuelEconomy: '87 MPGe (Dual Max, 22-inch wheels)', maxSeating: 5, resaleValue: 'Unavailable', basePrice: 72885, powertrain: 'Electric', towingCapacity: 'Up to 11,000 lbs when properly equipped', rating: 5, review: 'Reviewers praise its performance and useful storage, but note its high price.' },
   ],
-};
+} satisfies VehicleCatalog;
+
+export default catalog;

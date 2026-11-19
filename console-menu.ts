@@ -1,9 +1,24 @@
 import readline from 'node:readline';
 import { SportsCar, SUV, Crossover, Truck, PassengerCar } from './vehicles.js';
 import catalog from './catalog.js';
+import type { CatalogVehicle, VehicleInput } from './vehicles.js';
+
+type VehicleConstructor = new (vehicle: VehicleInput) => VehicleInput & { describe(): string };
+
+interface ComparisonField {
+  label: string;
+  property: keyof VehicleInput;
+}
+
+interface VehicleCategory {
+  name: string;
+  VehicleClass: VehicleConstructor;
+  models: CatalogVehicle[];
+  comparisonFields: ComparisonField[];
+}
 
 // Each category connects a menu label to its class and catalog data.
-const categories = [
+const categories: VehicleCategory[] = [
   {
     name: '🏎️ Sports car',
     VehicleClass: SportsCar,
@@ -42,7 +57,7 @@ const categories = [
   },
 ];
 
-const sharedComparisonFields = [
+const sharedComparisonFields: ComparisonField[] = [
   { label: 'Year', property: 'year' },
   { label: 'Base MSRP', property: 'basePrice' },
   { label: 'Powertrain', property: 'powertrain' },
@@ -53,17 +68,17 @@ const sharedComparisonFields = [
   { label: 'Resale estimate', property: 'resaleValue' },
 ];
 
-function comparisonValue(vehicle, property) {
+function comparisonValue(vehicle: VehicleInput, property: keyof VehicleInput): string {
   const value = vehicle[property];
   if (value == null || value === '') return 'Unavailable';
   if (property === 'basePrice') {
     const note = vehicle.basePriceNote ? ` (${vehicle.basePriceNote})` : '';
-    return `$${value.toLocaleString('en-US')}${note}`;
+    return `$${Number(value).toLocaleString('en-US')}${note}`;
   }
-  return value;
+  return String(value);
 }
 
-function displayComparison(firstVehicle, secondVehicle, category) {
+function displayComparison(firstVehicle: VehicleInput, secondVehicle: VehicleInput, category: VehicleCategory): void {
   const firstName = `${firstVehicle.make} ${firstVehicle.model}`;
   const secondName = `${secondVehicle.make} ${secondVehicle.model}`;
   const fields = sharedComparisonFields.concat(category.comparisonFields);
@@ -79,7 +94,12 @@ function displayComparison(firstVehicle, secondVehicle, category) {
   console.table(rows);
 }
 
-async function askChoice(lines, prompt, choices, zeroChoice) {
+async function askChoice<T, TZero extends string>(
+  lines: AsyncIterator<string>,
+  prompt: string,
+  choices: readonly T[],
+  zeroChoice: TZero
+): Promise<T | TZero | null> {
   while (true) {
     process.stdout.write(prompt);
     const answer = await lines.next();
@@ -95,7 +115,7 @@ async function askChoice(lines, prompt, choices, zeroChoice) {
   }
 }
 
-export async function runConsoleMenu() {
+export async function runConsoleMenu(): Promise<void> {
   const input = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
   const lines = input[Symbol.asyncIterator]();
   console.log('🚗 Welcome to the Vehicle Builder!');

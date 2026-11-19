@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import catalog from '../catalog.js';
-import { SportsCar, SUV, Crossover, Truck, PassengerCar } from '../vehicles.js';
+import catalog from '../dist/catalog.js';
+import { SportsCar, SUV, Crossover, Truck, PassengerCar } from '../dist/vehicles.js';
 
 const categories = [
   [SportsCar, catalog.sportsCars, 'topSpeed'],
@@ -38,7 +38,7 @@ test('sports car accepts named properties in any order and handles missing detai
 });
 
 test('console retries invalid choices and displays two categories', () => {
-  const result = spawnSync(process.execPath, ['index.js'], {
+  const result = spawnSync(process.execPath, ['dist/index.js'], {
     input: '9\n1\n1\n2\n2\n1\n0\n',
     encoding: 'utf8',
     timeout: 5000,
@@ -51,7 +51,7 @@ test('console retries invalid choices and displays two categories', () => {
 });
 
 test('model menu goes back and another model stays in the category', () => {
-  const result = spawnSync(process.execPath, ['index.js'], {
+  const result = spawnSync(process.execPath, ['dist/index.js'], {
     input: '2\n0\n3\n1\n1\n2\n0\n',
     encoding: 'utf8',
     timeout: 5000,
@@ -67,7 +67,7 @@ test('model menu goes back and another model stays in the category', () => {
 });
 
 test('console compares two different models in the same category', () => {
-  const result = spawnSync(process.execPath, ['index.js'], {
+  const result = spawnSync(process.execPath, ['dist/index.js'], {
     input: '1\n5\n3\n1\n0\n0\n',
     encoding: 'utf8',
     timeout: 5000,
@@ -93,7 +93,7 @@ test('comparison menu highlights only Compare in color-capable terminals', () =>
     const result = spawnSync(process.execPath, [
       '--input-type=module',
       '-e',
-      `process.stdout.isTTY = ${isTTY}; await import('./index.js');`,
+      `process.stdout.isTTY = ${isTTY}; await import('./dist/index.js');`,
     ], {
       input: '1\n1\n0\n',
       encoding: 'utf8',
@@ -106,7 +106,7 @@ test('comparison menu highlights only Compare in color-capable terminals', () =>
 });
 
 test('Rivian R1T can be selected and compared with another truck', () => {
-  const result = spawnSync(process.execPath, ['index.js'], {
+  const result = spawnSync(process.execPath, ['dist/index.js'], {
     input: '4\n6\n3\n1\n0\n0\n',
     encoding: 'utf8',
     timeout: 5000,
@@ -122,7 +122,7 @@ test('Rivian R1T can be selected and compared with another truck', () => {
 });
 
 test('empty input is invalid and zero quits from the category menu', () => {
-  const result = spawnSync(process.execPath, ['index.js'], {
+  const result = spawnSync(process.execPath, ['dist/index.js'], {
     input: '\n0\n',
     encoding: 'utf8',
     timeout: 5000,
